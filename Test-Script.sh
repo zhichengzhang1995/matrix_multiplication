@@ -28,13 +28,13 @@ if [ ! -f data/mat_1000x1000b.txt ]; then
 fi
 
 
-if [ ! -f data/mat_5000x5000a.txt ]; then
-    echo "generate 5000x5000 matrix..."
-    python random_float_matrix.py 5000 5000 > data/mat_5000x5000a.txt
-fi
-if [ ! -f data/mat_5000x5000b.txt ]; then
-    python random_float_matrix.py 5000 5000 > data/mat_5000x5000b.txt
-fi
+# if [ ! -f data/mat_5000x5000a.txt ]; then
+#     echo "generate 5000x5000 matrix..."
+#     python random_float_matrix.py 5000 5000 > data/mat_5000x5000a.txt
+# fi
+# if [ ! -f data/mat_5000x5000b.txt ]; then
+#     python random_float_matrix.py 5000 5000 > data/mat_5000x5000b.txt
+# fi
 
 echo "compile..."
 echo
@@ -70,17 +70,16 @@ cal_t=$((time mpirun -np 4 bin/mpi data/mat_1000x1000.txt data/mat_1000x1000b.tx
 echo "with mpi(4p)       $cal_t"
 echo
 
-echo "* * * * * * * 5000x5000 Matrix"
-cal_t=$((time bin/seq data/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
-echo "with sequential    $cal_t"
-
-cal_t=$((time bin/omp data/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
-echo "with omp           $cal_t"
-
-cal_t=$((time bin/thread2 data/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
-echo "with thread2       $cal_t"
-
-cal_t=$((time mpirun -np 4 bin/mpi ddata/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
-echo "with mpi(4p)       $cal_t"
-echo
-
+# echo "* * * * * * * 5000x5000 Matrix"
+# cal_t=$((time bin/seq data/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
+# echo "with sequential    $cal_t"
+#
+# cal_t=$((time bin/omp data/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
+# echo "with omp           $cal_t"
+#
+# cal_t=$((time bin/thread2 data/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
+# echo "with thread2       $cal_t"
+#
+# cal_t=$((time mpirun -np 4 bin/mpi ddata/mat_5000x5000a.txt data/mat_5000x5000b.txt)  2>&1 > /dev/null | grep real | awk '{print $2}')
+# echo "with mpi(4p)       $cal_t"
+# echo
